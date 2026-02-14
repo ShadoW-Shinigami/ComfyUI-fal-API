@@ -10,8 +10,10 @@ Custom nodes for using Flux models with  fal API in ComfyUI with only one API Ke
 - [Available Nodes](#available-nodes)
   - [Image Generation](#image-generation)
   - [Video Generation](#video-generation)
+  - [Training](#training)
   - [Language Models (LLMs)](#language-models-llms)
   - [Vision Language Models (VLMs)](#vision-language-models-vlms)
+  - [Utilities](#utilities)
 - [Troubleshooting](#troubleshooting)
 - [License](#license)
 
@@ -88,6 +90,7 @@ After installation and configuration, restart ComfyUI. The new nodes will be ava
 - **GPT-Image 1.5 Edit (fal)**: High-fidelity image editing with strong prompt adherence (supports up to 16 batched images and optional mask)
 - **DY Wan Fun 2.2 (fal)**: Generate images using DY Wan Fun 2.2 model
 - **DY Wan Upscaler (fal)**: Upscale images using DY Wan Upscaler
+- **Flux 2 Klein 9B LoRA (fal)**: Image generation with Flux 2 Klein 9B and LoRA support
 
 ### Video Generation
 
@@ -98,6 +101,7 @@ After installation and configuration, restart ComfyUI. The new nodes will be ava
 - **Kling Master v2.0 Video Generation (fal)**: Advanced video generation with Kling Master
 - **Kling Pro 2.1 Video Generation (fal)**: Video Generation with Kling Pro with First Frame Last Frame support
 - **Kling v2.5 Turbo Pro Image-to-Video (fal)**: Video Generation with Kling Turbo with First Frame Last Frame support
+- **Kling v2.6 Pro Video Generation (fal)**: Unified T2V/I2V node with Kling v2.6 Pro
 - **Kling Omni Image-to-Video (fal)**: Kling Omni image-to-video generation with start/end image support
 - **Kling Omni Reference-to-Video (fal)**: Generate videos with reference images and elements
 - **Kling Omni Video-to-Video Edit (fal)**: Edit videos with prompts and reference images
@@ -133,8 +137,16 @@ After installation and configuration, restart ComfyUI. The new nodes will be ava
   - Supports Kling Pro v1.6, Kling Master v2.0, MiniMax, Luma, Veo2, and Wan Pro
   - Each service can be individually enabled/disabled
   - Wan Pro runs with safety checker enabled and automatic seed selection
+- **Upload Video (fal)**: Upload a local video to fal storage and get a URL
+- **Upload File (fal)**: Upload a local file to fal storage and get a URL
 - **Load Video from URL**: Load and process videos from a given URL
 
+### Training
+
+- **Flux LoRA Trainer (fal)**: Train custom LoRA models on Flux
+- **Hunyuan Video LoRA Trainer (fal)**: Train LoRA models for Hunyuan Video
+- **WAN LoRA Trainer (fal)**: Train LoRA models for WAN video generation
+- **LTX Video LoRA Trainer (fal)**: Train LoRA models for LTX Video
 
 ### Language Models (LLMs)
 
@@ -158,6 +170,10 @@ After installation and configuration, restart ComfyUI. The new nodes will be ava
     - x-ai/grok-4-fast
     - custom (Get model name from openrouter)
   - Supports various tasks such as image captioning, visual question answering, and more
+
+### Utilities
+
+- **FAL API Key Manager**: Manage multiple named FAL API keys from the ComfyUI frontend. Keys are stored in browser localStorage (never saved in workflow JSON). Select a key profile and it is automatically applied before each queue execution.
 
 ## Troubleshooting
 
