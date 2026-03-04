@@ -128,6 +128,7 @@ After installation and configuration, restart ComfyUI. The new nodes will be ava
 - **Seedance Image-to-Video (fal)**: Convert images to videos using Seedance Lite model
 - **Seedance Text-to-Video (fal)**: Generate videos from text prompts using Seedance Lite model
 - **Seedance Pro Image-to-Video (fal)**: Convert images to videos using Seedance Pro model with advanced controls
+- **Grok Imagine Video (fal)**: Unified T2V/I2V node - generate videos with audio using xAI's Grok Imagine Video (up to 15s, 720p)
 - **Sora 2 Pro Image-to-Video (fal)**: Generate Videos from an image input using OpenAI Sora 2 Pro
 - **Video Upscaler (fal)**: Upscale video quality using AI
 - **Seedvr Upscale Video (fal)**: Upscale video quality using Seedvr

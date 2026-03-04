@@ -3257,6 +3257,61 @@ class FalVeo31FastFirstLastFrameToVideo:
 
 
 # Update Node class mappings
+class FalGrokImagineVideo:
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {
+            "required": {
+                "prompt": ("STRING", {"default": "", "multiline": True}),
+            },
+            "optional": {
+                "image": ("IMAGE",),
+                "duration": ("INT", {"default": 6, "min": 1, "max": 15}),
+                "aspect_ratio": (["16:9", "4:3", "3:2", "1:1", "2:3", "3:4", "9:16"], {"default": "16:9"}),
+                "resolution": (["480p", "720p"], {"default": "720p"}),
+            },
+        }
+
+    RETURN_TYPES = ("STRING",)
+    FUNCTION = "generate_video"
+    CATEGORY = "FAL/VideoGeneration"
+
+    def generate_video(self, prompt, image=None, duration=6, aspect_ratio="16:9", resolution="720p"):
+        try:
+            if image is None:
+                # T2V mode
+                endpoint = "xai/grok-imagine-video/text-to-video"
+                arguments = {
+                    "prompt": prompt,
+                    "duration": duration,
+                    "aspect_ratio": aspect_ratio,
+                    "resolution": resolution,
+                }
+            else:
+                # I2V mode
+                image_url = ImageUtils.upload_image(image)
+                if not image_url:
+                    return ApiHandler.handle_video_generation_error(
+                        "grok-imagine-video", "Failed to upload image"
+                    )
+                endpoint = "xai/grok-imagine-video/image-to-video"
+                arguments = {
+                    "prompt": prompt,
+                    "image_url": image_url,
+                    "duration": duration,
+                    "aspect_ratio": aspect_ratio,
+                    "resolution": resolution,
+                }
+
+            result = ApiHandler.submit_and_get_result(endpoint, arguments)
+            video_url = result["video"]["url"]
+            return (video_url,)
+        except Exception as e:
+            return ApiHandler.handle_video_generation_error(
+                "grok-imagine-video", str(e)
+            )
+
+
 NODE_CLASS_MAPPINGS = {
     "InfinityStarTextToVideo_fal": InfinityStarTextToVideoNode,
     "Kling_fal": KlingNode,
@@ -3300,6 +3355,7 @@ NODE_CLASS_MAPPINGS = {
     "Sora2Pro_fal": FalSora2ProImageToVideo,
     "Veo31_fal": FalVeo31FirstLastFrameToVideo,
     "Veo31Fast_fal": FalVeo31FastFirstLastFrameToVideo,
+    "GrokImagineVideo_fal": FalGrokImagineVideo,
 }
 
 # Update Node display name mappings
@@ -3346,4 +3402,5 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "Sora2Pro_fal": "Sora 2 Pro Image-to-Video (fal)",
     "Veo31_fal": "Veo 3.1 First-Last-Frame-to-Video (fal)",
     "Veo31Fast_fal": "Veo 3.1 Fast First-Last-Frame-to-Video (fal)",
+    "GrokImagineVideo_fal": "Grok Imagine Video (fal)",
 }
